@@ -22,10 +22,10 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     private static final double angleDefault = 360.0/pow((sqrt(5.0) + 1.0)/2.0, 2.0);
     private double angle;
-    private float size = 12;
+    private float size = 4;
+    private float density = 1;
     private boolean ready = false;
 
-    private SurfaceView surface;
     private SurfaceHolder holder;
     private SeekBar seekbar;
 
@@ -40,11 +40,12 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
         ready = false;
         angle = angleDefault;
+        density = getResources().getDisplayMetrics().density;
         if (savedInstanceState != null) {
             angle = savedInstanceState.getDouble(angelState, angleDefault);
         }
 
-        surface = (SurfaceView) findViewById(R.id.surfaceView);
+        SurfaceView surface = (SurfaceView) findViewById(R.id.surfaceView);
         holder = surface.getHolder();
         holder.addCallback(this);
 
@@ -95,25 +96,28 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                     int width = canvas.getWidth();
 
                     Paint p = new Paint();
-                    p.setColor(Color.BLACK);
+
+                    p.setColor(Color.WHITE);
                     canvas.drawRect(0, 0, (float) width, (float) height, p);
 
-                    p.setColor(Color.BLUE);
-                    canvas.drawRect((float) (width * .12), (float) (height * .12), (float) (width * .88), (float) (height * .88), p);
+                    p.setColor(Color.LTGRAY);
+                    p.setStrokeWidth(density * 4);
+                    p.setStyle(Paint.Style.STROKE);
+                    canvas.drawRect(0, 0, (float) width, (float) height, p);
 
-                    p.setColor(Color.GREEN);
-
+                    p.setColor(Color.parseColor("#FF4081"));
+                    p.setStyle(Paint.Style.FILL);
                     int x0 = width / 2;
                     int y0 = height / 2;
-
                     double r = 0;
+                    double myAngle = angle;
                     for (int i = 0; i < 500; i++) {
-                        float d = (float) (2 * size * sqrt(i));
+                        float d = (float) (density * 2 * size * sqrt(i));
                         float a = (float) (r / 180 * PI);
                         float x = (float) (x0 + d * sin(a));
                         float y = (float) (y0 + d * cos(a));
-                        r += angle;
-                        canvas.drawCircle(x, y, size, p);
+                        r += myAngle;
+                        canvas.drawCircle(x, y, density * size, p);
                     }
 
                     holder.unlockCanvasAndPost(canvas);
