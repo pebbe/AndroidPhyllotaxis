@@ -1,4 +1,4 @@
-package nl.xs4all.pebbe.canvas;
+package nl.xs4all.pebbe.phyllotaxis;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private SurfaceHolder holder;
     private SeekBar seekbar;
 
-    private final static String angelState = "myState.ANGLE";
+    private final static String angelState = "nl.xs4all.pebbe.phyllotaxis.ANGLE";
 
     private static ReentrantLock lock = new ReentrantLock();
 

@@ -5,7 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nl.xs4all.pebbe.canvas.MainActivity">
+    tools:context="nl.xs4all.pebbe.phyllotaxis.MainActivity">
 
     <SurfaceView
         android:layout_width="0dp"
