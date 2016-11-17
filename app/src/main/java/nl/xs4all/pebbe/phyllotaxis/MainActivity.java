@@ -21,7 +21,7 @@ import static java.lang.Math.sqrt;
 public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback {
 
     private static final double angleDefault = 360.0/pow((sqrt(5.0) + 1.0)/2.0, 2.0);
-    private double angle;
+    private double angle = angleDefault;
     private float size = 4;
     private float density = 1;
     private boolean ready = false;
@@ -100,25 +100,30 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                     p.setColor(Color.WHITE);
                     canvas.drawRect(0, 0, (float) width, (float) height, p);
 
-                    p.setColor(Color.LTGRAY);
-                    p.setStrokeWidth(density * 4);
-                    p.setStyle(Paint.Style.STROKE);
-                    canvas.drawRect(0, 0, (float) width, (float) height, p);
-
-                    p.setColor(Color.parseColor("#FF4081"));
-                    p.setStyle(Paint.Style.FILL);
+                    p.setColor(Color.parseColor("#EC407A"));
                     int x0 = width / 2;
                     int y0 = height / 2;
                     double r = 0;
                     double myAngle = angle;
+                    String sAngle = String.format("%.3f⁰", myAngle).replaceAll("[,.]0*⁰", "⁰");
                     for (int i = 0; i < 500; i++) {
-                        float d = (float) (density * 2 * size * sqrt(i));
+                        float d = (float) (density * 1.7 * size * sqrt(i));
                         float a = (float) (r / 180 * PI);
                         float x = (float) (x0 + d * sin(a));
                         float y = (float) (y0 + d * cos(a));
                         r += myAngle;
                         canvas.drawCircle(x, y, density * size, p);
                     }
+
+                    p.setColor(Color.LTGRAY);
+                    p.setStrokeWidth(density * 4);
+                    p.setStyle(Paint.Style.STROKE);
+                    canvas.drawRect(0, 0, (float) width, (float) height, p);
+
+                    p.setStyle(Paint.Style.FILL);
+                    p.setColor(Color.BLACK);
+                    p.setTextSize(density * 14);
+                    canvas.drawText(sAngle, density * 8, height - density * 8, p);
 
                     holder.unlockCanvasAndPost(canvas);
                     ready = true;
