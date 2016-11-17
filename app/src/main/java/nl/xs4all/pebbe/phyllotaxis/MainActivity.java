@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         });
     }
 
-    protected void reset(View view) {
+    public void reset(View view) {
         angle = angleDefault;
         seekbar.setProgress((int)angleDefault);
     }
